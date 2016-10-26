@@ -54,10 +54,24 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 };
 
 })
+//profile picture
+.controller('ProfileCtrl', function ($scope, ngFB) {
+    ngFB.api({
+        path: '/me',
+        params: {fields: 'id,name'}
+    }).then(
+        function (user) {
+            $scope.user = user;
+        },
+        function (error) {
+            alert('Facebook error: ' + error.error_description);
+        });
+})
 
 .controller('SessionsCtrl', function($scope, Session) {
     $scope.sessions = Session.query();
 })
+
 
 .controller('SessionCtrl', function($scope, $stateParams, Session) {
     $scope.session = Session.get({sessionId: $stateParams.sessionId});

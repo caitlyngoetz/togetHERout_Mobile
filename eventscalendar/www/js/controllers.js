@@ -1,6 +1,8 @@
 angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['starter.services'])
+angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, ngFB) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -39,18 +41,24 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+  $scope.fbLogin = function () {
+    ngFB.login({scope: 'email,public_profile'}).then(
+        function (response) {
+            if (response.status === 'connected') {
+                console.log('Facebook login succeeded');
+                $scope.closeLogin();
+            } else {
+                alert('Facebook login failed');
+            }
+        });
+};
+
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('SessionsCtrl', function($scope, Session) {
+    $scope.sessions = Session.query();
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('SessionCtrl', function($scope, $stateParams, Session) {
+    $scope.session = Session.get({sessionId: $stateParams.sessionId});
 });

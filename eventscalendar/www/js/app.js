@@ -102,6 +102,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
             }
         }
     })
+    
+    .state('app.news', {
+        url: "/news",
+        views: {
+        'menuContent': {
+            templateUrl: "templates/news.html",
+            controller: 'NewsCtrl'
+        }
+      }
+    })
+
+    .state('app.newsarticle', {
+        url: "/news/:newsarticleId",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/newsarticle.html",
+                controller: 'NewsArticleCtrl'
+            }
+        }
+    })
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/events');
 });

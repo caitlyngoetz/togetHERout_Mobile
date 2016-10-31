@@ -3,6 +3,7 @@ var express = require('express'),
     methodOverride  = require('method-override'),
     sessions        = require('./routes/sessions'),
     events        = require('./routes/events'),
+    news        = require('./routes/news'),
     app = express();
 
 app.use(bodyParser.json());
@@ -22,6 +23,8 @@ app.get('/sessions', sessions.findAll);
 app.get('/sessions/:id', sessions.findById);
 app.get('/events', events.findAll);
 app.get('/events/:id', events.findById);
+app.get('/news', news.findAll);
+app.get('/news/:id', news.findById);
 
 app.set('port', process.env.PORT || 5000);
 

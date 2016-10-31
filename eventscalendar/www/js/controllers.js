@@ -83,7 +83,14 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
     $scope.events = Event.query();
 })
 
-
 .controller('EventCtrl', function($scope, $stateParams, Event) {
     $scope.event = Event.get({eventId: $stateParams.eventId});
+})
+
+.controller('NewsCtrl', function($scope, News) {
+    $scope.news = News.query();
+})
+
+.controller('NewsArticleCtrl', function($scope, $stateParams, News) {
+    $scope.newsarticle = News.get({newsarticleId: $stateParams.newsarticleId});
 });

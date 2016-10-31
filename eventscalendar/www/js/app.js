@@ -26,60 +26,82 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+    $stateProvider
 
     .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
+        url: '/app',
+        abstract: true,
+        templateUrl: 'templates/menu.html',
+        controller: 'AppCtrl'
+    })
 
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
+    .state('app.search', {
+        url: '/search',
+        views: {
+            'menuContent': {
+            templateUrl: 'templates/search.html'
+          }
+        }
+    })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
+    .state('app.browse', {
+        url: '/browse',
+            views: {
+            'menuContent': {
+              templateUrl: 'templates/browse.html'
+            }
+        }
+    })
+    
+    .state('app.profile', {
+        url: "/profile",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/profile.html",
+                controller: "ProfileCtrl"
+            }
+        }
+    })
+    
+    .state('app.sessions', {
+        url: "/sessions",
+        views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+            templateUrl: "templates/sessions.html",
+            controller: 'SessionsCtrl'
         }
       }
     })
-  .state('app.profile', {
-    url: "/profile",
-    views: {
-        'menuContent': {
-            templateUrl: "templates/profile.html",
-            controller: "ProfileCtrl"
-        }
-    }
-})
-    .state('app.sessions', {
-  url: "/sessions",
-  views: {
-      'menuContent': {
-          templateUrl: "templates/sessions.html",
-          controller: 'SessionsCtrl'
-      }
-  }
-})
 
-  .state('app.session', {
-    url: "/sessions/:sessionId",
-    views: {
+    .state('app.session', {
+        url: "/sessions/:sessionId",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/session.html",
+                controller: 'SessionCtrl'
+          }
+        }
+    })
+    
+    .state('app.events', {
+        url: "/events",
+        views: {
         'menuContent': {
-          templateUrl: "templates/session.html",
-          controller: 'SessionCtrl'
+            templateUrl: "templates/events.html",
+            controller: 'EventsCtrl'
+        }
       }
-    }
-});
+    })
+
+    .state('app.event', {
+        url: "/event/:eventId",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/event.html",
+                controller: 'EventCtrl'
+            }
+        }
+    })
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/sessions');
+  $urlRouterProvider.otherwise('/app/events');
 });

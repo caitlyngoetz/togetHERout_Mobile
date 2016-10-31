@@ -41,6 +41,7 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
       $scope.closeLogin();
     }, 1000);
   };
+
   $scope.fbLogin = function () {
     ngFB.login({scope: 'email,public_profile'}).then(
         function (response) {
@@ -68,6 +69,7 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
         });
 })
 
+
 .controller('SessionsCtrl', function($scope, Session) {
     $scope.sessions = Session.query();
 })
@@ -75,4 +77,13 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 
 .controller('SessionCtrl', function($scope, $stateParams, Session) {
     $scope.session = Session.get({sessionId: $stateParams.sessionId});
+})
+
+.controller('EventsCtrl', function($scope, Event) {
+    $scope.events = Event.query();
+})
+
+
+.controller('EventCtrl', function($scope, $stateParams, Event) {
+    $scope.event = Event.get({eventId: $stateParams.eventId});
 });

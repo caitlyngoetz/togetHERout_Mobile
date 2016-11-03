@@ -122,6 +122,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
             }
         }
     })
+
+    .state('app.preferences', {
+	url: "/preferences",
+	views: {
+	    'menuContent': {
+		templateUrl: "templates/preferences.html",
+		controller: 'PreferencesCtrl'
+	     }
+	}
+     })
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/events');
 });

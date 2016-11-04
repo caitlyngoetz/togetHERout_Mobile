@@ -1,1 +1,7 @@
-/* Empty. Add your own CSS if you like */
+ion-header-bar.bar-stable.bar.bar-header.disable-user-behavior {
+    background-color:#09aaF9;
+}
+
+div.title.title-center.header-item {
+    color:#9F229F;
+}

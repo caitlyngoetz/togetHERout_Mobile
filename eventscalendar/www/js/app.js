@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 
 angular.module('starter', ['ionic', 'starter.controllers'])
-angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'ui.rCalendar'])
 
 .run(function($ionicPlatform, ngFB) {
   ngFB.init({appId: '691457421027471'});
@@ -60,26 +60,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
                 templateUrl: "templates/profile.html",
                 controller: "ProfileCtrl"
             }
-        }
-    })
-    
-    .state('app.sessions', {
-        url: "/sessions",
-        views: {
-        'menuContent': {
-            templateUrl: "templates/sessions.html",
-            controller: 'SessionsCtrl'
-        }
-      }
-    })
-
-    .state('app.session', {
-        url: "/sessions/:sessionId",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/session.html",
-                controller: 'SessionCtrl'
-          }
         }
     })
     

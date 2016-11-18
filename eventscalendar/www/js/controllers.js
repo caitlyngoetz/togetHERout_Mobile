@@ -3,6 +3,14 @@ angular.module('starter.controllers', ['starter.services'])
 angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, ngFB, UserService) {
+    if ($scope.user != null) {
+        $scope.visibleportrait = "show";
+        $scope.isLogged = false;
+    } else {
+        $scope.visibleportrait = "hide";
+        $scope.isLogged = true;
+    }
+  
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -61,11 +69,18 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
             params: {fields: 'id,name'}
         })
         .then(function (user) {
-                UserService.setUser(user);
-                $scope.user = user;
+            UserService.setUser(user);
+            $scope.user = user;
+            
+            if ($scope.user != null) {
+                $scope.visibleportrait = "show";
+                $scope.isLogged = false;
+            } else {
+                $scope.visibleportrait = "hide";
+                $scope.isLogged = true;
             }
-        )
-/**/    };
+        })
+    };
 })
 //profile picture
 .controller('ProfileCtrl', function ($scope, ngFB) {

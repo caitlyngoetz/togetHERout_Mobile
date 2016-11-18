@@ -19,11 +19,12 @@
     <ion-content>
       <ion-list>
         <ion-item>
-        <div class="item item-avatar">
+        <div class="item item-avatar {{visibleportrait}}">
             <img src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270"/>
+            <div>{{user.name}}</div>
         </div>
         </ion-item>
-        <ion-item menu-close ng-click="login()">
+        <ion-item ng-show="isLogged" menu-close ng-click="login()">
           Login
         </ion-item>
         <ion-item menu-close href="#/app/news">

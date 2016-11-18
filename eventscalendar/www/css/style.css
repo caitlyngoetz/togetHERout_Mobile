@@ -5,3 +5,11 @@ ion-header-bar.bar-stable.bar.bar-header.disable-user-behavior {
 div.title.title-center.header-item {
     color:#9F229F;
 }
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: inherit;
+}

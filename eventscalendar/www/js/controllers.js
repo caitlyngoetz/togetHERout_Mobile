@@ -28,6 +28,7 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
     $scope.modal = modal;
   });
 
+
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
@@ -55,7 +56,7 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
             if (response.status === 'connected') {
                 console.log('Facebook login succeeded');
                 $scope.fbSave();
-                $scope.closeLogin();
+               // $scope.closeLogin();
             } else {
                 alert('Facebook login failed');
             }

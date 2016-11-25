@@ -55,6 +55,7 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
         function (response) {
             if (response.status === 'connected') {
                 console.log('Facebook login succeeded');
+                //saves scope .. Not working?
                 $scope.fbSave();
                // $scope.closeLogin();
             } else {

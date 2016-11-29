@@ -5,7 +5,7 @@
       </ion-nav-back-button>
 
       <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        <button class="button button-icon button-clear ion-navicon" ng-show="portrait.show" menu-toggle="left">
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
@@ -19,12 +19,12 @@
     <ion-content>
       <ion-list>
         <ion-item>
-        <div class="item item-avatar {{visibleportrait}}">
-            <img src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270"/>
+        <div class="item item-avatar" ng-show="portrait.show">
+            <img ng-src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270"/>
             <div>{{user.name}}</div>
         </div>
         </ion-item>
-        <ion-item ng-show="isLogged" menu-close ng-click="login()">
+        <ion-item ng-show="!portrait.show" menu-close ng-click="login()">
           Login
         </ion-item>
         <ion-item menu-close href="#/app/news">

@@ -118,11 +118,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB', 'ui.rCale
     views: {
       'menuContent': {
         templateUrl: 'templates/login.html',
-        controller: 'AppCtrl'
+        controller: 'LoginCtrl'
+      }
+    }
+  })
+     .state('app.loginTemp', {
+    url: '/loginTemp',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/loginTemp.html',
+        controller: 'loginTemp'
       }
     }
   })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
+  $urlRouterProvider.otherwise('/app/loginTemp');
 });

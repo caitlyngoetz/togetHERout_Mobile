@@ -2,13 +2,12 @@ angular.module('starter.controllers', [])
 angular.module('starter.controllers', ['starter.services'])
 angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, ngFB, UserService) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, ngFB, UserService, $state) {
     if ($scope.user != null) {
-        $scope.visibleportrait = "show";
-        $scope.isLogged = false;
+        $scope.portrait = { show : true };
     } else {
-        $scope.visibleportrait = "hide";
-        $scope.isLogged = true;
+        $scope.portrait = { show : false };
+        $state.go('app.login');
     }
   
   // With the new view caching in Ionic, Controllers are only called
@@ -20,6 +19,7 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 
   // Form data for the login modal
   $scope.loginData = {};
+  $scope.user = { id : 0, name : "thisshitworks" };
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -57,7 +57,7 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
                 console.log('Facebook login succeeded');
                 //saves scope .. Not working?
                 $scope.fbSave();
-               // $scope.closeLogin();
+                $scope.closeLogin();
             } else {
                 alert('Facebook login failed');
             }
@@ -75,15 +75,82 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
             $scope.user = user;
             
             if ($scope.user != null) {
-                $scope.visibleportrait = "show";
-                $scope.isLogged = false;
+                $scope.portrait = { show : true };
             } else {
-                $scope.visibleportrait = "hide";
-                $scope.isLogged = true;
+                $scope.portrait = { show : false };
             }
         })
     };
 })
+
+.controller('LoginCtrl', function($scope, $ionicModal, $timeout, ngFB, UserService, $state,$ionicHistory) {
+      // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/login.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+
+  // Triggered in the login modal to close it
+  $scope.closeLogin = function() {
+    $ionicHistory.nextViewOptions({
+    disableBack:true
+    });
+
+    $state.go('app.events');
+  };
+
+  // Open the login modal
+  $scope.login = function() {
+    $scope.modal.show();
+  };
+
+  // Perform the login action when the user submits the login form
+  $scope.doLogin = function() {
+    console.log('Doing login', $scope.loginData);
+
+    // Simulate a login delay. Remove this and replace with your login
+    // code if using a login system
+    $timeout(function() {
+      $scope.closeLogin();
+    }, 1000);
+  };
+
+    $scope.fbLogin = function () {
+        ngFB.login({scope: 'email,public_profile'}).then(
+        function (response) {
+            if (response.status === 'connected') {
+                console.log('Facebook login succeeded');
+                //saves scope .. Not working?
+                $scope.fbSave();
+                $scope.closeLogin();
+            } else {
+                alert('Facebook login failed');
+            }
+        });
+    };
+    
+    
+    $scope.fbSave = function () {
+        ngFB.api({
+            path: '/me',
+            params: {fields: 'id,name'}
+        })
+        .then(function (user) {
+            UserService.setUser(user);
+            $scope.user.id = user.id;
+            $scope.user.name = user.name;
+            if ($scope.user != null) {
+                console.log('user id: ' + user.id);
+                $scope.portrait.show = true;
+            } else {
+                $scope.portrait.show = false;
+            }
+        })
+    };
+})
+
 //profile picture
 .controller('ProfileCtrl', function ($scope, ngFB) {
     ngFB.api({
@@ -188,6 +255,9 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 
 .controller('NewsCtrl', function($scope, News) {
     $scope.news = News.query();
+})
+.controller('loginTemp', function($scope, News) {
+    
 })
 
 .controller('NewsArticleCtrl', function($scope, $stateParams, News) {

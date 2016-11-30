@@ -211,41 +211,27 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
         console.log('Selected time: ' + selectedTime + ', hasEvents: ' + (events !== undefined && events.length !== 0));
     };
 
-    function createRandomEvents() {
-        var events = [];
-        for (var i = 0; i < 50; i += 1) {
-            var date = new Date();
-            var eventType = Math.floor(Math.random() * 2);
-            var startDay = Math.floor(Math.random() * 90) - 45;
-            var endDay = Math.floor(Math.random() * 2) + startDay;
-            var startTime;
-            var endTime;
-            if (eventType === 0) {
-                startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
-                if (endDay === startDay) {
-                    endDay += 1;
-                }
-                endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-                events.push({
-                    title: 'All Day - ' + i,
-                    startTime: startTime,
-                    endTime: endTime,
-                    allDay: true
-                });
-            } else {
-                var startMinute = Math.floor(Math.random() * 24 * 60);
-                var endMinute = Math.floor(Math.random() * 180) + startMinute;
-                startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-                endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
-                events.push({
-                    title: 'Event - ' + i,
-                    startTime: startTime,
-                    endTime: endTime,
-                    allDay: false
-                });
-            }
-        }
-        return events;
+    function createRandomEvents()
+    {
+    	var token = "691457421027471|xP7RzSR3WwN1czNby76cWKNi83M";
+    	var events = [];
+
+	// Get and parse list of upcoming events
+	$.getJSON("https://graph.facebook.com/1662573647292892/events?access_token="+token+"&callback=?",function(json)
+	{
+		angular.forEach(json.data, function(value, key)
+		{
+			console.log(value.name);
+			var cleanString = value.start_time.replace(/[T]/g, " ");
+			console.log(cleanString);
+			
+    			events.push({
+        			title: value.name,
+        			startTime: cleanString
+    			});
+		});
+	});
+	return events;
     }
 })
 

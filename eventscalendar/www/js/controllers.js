@@ -181,10 +181,8 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
     $scope.changeMode = function (mode) {
         $scope.calendar.mode = mode;
     };
-
-    $scope.loadEvents = function () {
-        $scope.calendar.eventSource = createRandomEvents();//Event.query();
-    };
+    
+    $scope.calendar.eventSource = createRandomEvents();
 
     $scope.onEventSelected = function (event) {
         console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
@@ -216,24 +214,24 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
     	var token = "691457421027471|xP7RzSR3WwN1czNby76cWKNi83M";
     	var events = [];
 
-	// Get and parse list of upcoming events
-	$.getJSON("https://graph.facebook.com/1662573647292892/events?access_token="+token+"&callback=?",function(json)
-	{
-		angular.forEach(json.data, function(value, key)
-		{
-            var cleanString = value.start_time.replace(/[T]/g, " ");
-            var date = new Date(cleanString); 
-            var endtime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours() + 1, date.getMinutes(), date.getSeconds());
-			
-    			events.push({
-        			title: value.name,
-                    startTime: date,
-                    endTime: endtime,
-                    allDay: false
-    			});
-		});
-	});
-	return events;
+        // Get and parse list of upcoming events
+        $.getJSON("https://graph.facebook.com/1662573647292892/events?access_token="+token+"&callback=?",function(json)
+        {
+            angular.forEach(json.data, function(value, key)
+            {
+                var cleanString = value.start_time.replace(/[T]/g, " ");
+                var date = new Date(cleanString); 
+                var endtime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours() + 1, date.getMinutes(), date.getSeconds());
+                
+                    events.push({
+                        title: value.name,
+                        startTime: date,
+                        endTime: endtime,
+                        allDay: false
+                    });
+            });
+        });
+        return events;
     }
 })
 

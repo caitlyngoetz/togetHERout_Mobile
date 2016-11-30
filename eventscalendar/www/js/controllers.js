@@ -241,11 +241,11 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 
 .controller('NewsCtrl', function($scope) {
     $scope.news = [
-        {id:0 , title:"Co-op Event", author:"Tony Stark", date:"10/31/2016", time:"9:40am", location:"Anne Morrison", description: "Gathering of startups at the Co-op."},
-        {id:1 , title:"Christmas Party", author:"Bruce Banner", date:"12/20/2016", time:"10:10am", location:"Green Belt", description: "Christmas Party at Anne Morrison."},
-        {id:2 , title:"Women's walk", author:"John Smith", date:"11/01/2016", time:"11:10am", location:"Gold's Gym", description: "These descriptions don't matter."},
-        {id:3 , title:"March for dimes", author:"Peter Parker", date:"11/01/2016", time:"3:10Pm", location:"BSU Rec Center", description: "Learning new stuff is hard."},
-        {id:4 , title:"Closing up shop", author:"Sheldon Cooper", date:"11/01/2016", time:"2:00pm", location:"Veterans Memorial", description: "Blah blah blah, is this working."}
+        {id:0 , title:"More Pictures", author:"Jessica Porter", date:"10/31/2016", time:"9:40am", location:"", description: "More pictures from our event with @boomboxbody! If you didn't get a chance to join us this time, stay tuned for future events we host with this great startup as well as the ladies events we host through our group. (Ladies - search togetHERout on Facebook for our closed group!)"},
+        {id:1 , title:"BoomBox Body Teamup", author:"Bruce Banner", date:"12/20/2016", time:"10:10am", location:"", description: "Our partnered event was a success! Excited to bring everyone more amazing events in the future. #Repost @boomboxbody with @repostapp The @boomboxbody and @togetherout Camel's Back workout was a huge success!! We would like to thank all the partners who made this possible. @bodybuildingcom @killerwhey @meriwethercider @neckarcoffee @superfoodathlete @proofeyewear"},
+        {id:2 , title:"Sneak Peek", author:"Jessica Porter", date:"11/01/2016", time:"11:10am", location:"", description: "Here's a sneak peek of what's coming soon! Introducing togetHERout sports bras made by cofounder Lindsey Walters. Because these are handmade in Boulder, Colorado, we would love your feedback! How many of you girls are interested in purchasing togetHERout sports bras? Leave us some love in the comment section below 🙂 more designs to come!"},
+        {id:3 , title:"Who wants a free shaker", author:"Jessica Porter", date:"11/01/2016", time:"3:10Pm", location:"", description: "www.facebook.com/groups/726599160796457/permalink/978234785632892/ So, who wants a free shaker?!! 🙋Venmo BoomBoxBody and let us know that you're coming to the event - first 40 people to pay get one! 😎"},
+        {id:4 , title:"Powderhaus Brewing", author:"Jessica Porter", date:"11/01/2016", time:"2:00pm", location:"", description: "One of our new vendors for the event this Saturday!! 😍🙌🏼🍻#Repost @boomboxbody with @repostapp Sometimes it all just works out. @powderhausbrewing will donate 10 free beer tokens for the @togetherout and @boomboxbody raffle this Saturday. Click on the link in the @boomboxbody profile to sign up. "}
     ];
 })
 
@@ -255,14 +255,14 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 
 .controller('NewsArticleCtrl', function($scope, $stateParams) {
     if ($stateParams.newsarticleId == 0) {
-        $scope.newsarticle = {id:0 , title:"Co-op Event", author:"Tony Stark", date:"10/31/2016", time:"9:40am", location:"Anne Morrison", description: "Gathering of startups at the Co-op."};
+        $scope.newsarticle = {id:0 , title:"More Pictures", author:"Jessica Porter", date:"10/31/2016", time:"9:40am", location:"", description: "More pictures from our event with @boomboxbody! If you didn't get a chance to join us this time, stay tuned for future events we host with this great startup as well as the ladies events we host through our group. (Ladies - search togetHERout on Facebook for our closed group!)"};
     } else if ($stateParams.newsarticleId == 1) {
-        $scope.newsarticle = {id:1 , title:"Christmas Party", author:"Bruce Banner", date:"12/20/2016", time:"10:10am", location:"Green Belt", description: "Christmas Party at Anne Morrison."};
+        $scope.newsarticle = {id:1 , title:"BoomBox Body Teamup", author:"Jessica Porter", date:"12/20/2016", time:"10:10am", location:"", description: "Our partnered event was a success! Excited to bring everyone more amazing events in the future. #Repost @boomboxbody with @repostapp The @boomboxbody and @togetherout Camel's Back workout was a huge success!! We would like to thank all the partners who made this possible. @bodybuildingcom @killerwhey @meriwethercider @neckarcoffee @superfoodathlete @proofeyewear"};
     } else if ($stateParams.newsarticleId == 2) {
-        $scope.newsarticle = {id:2 , title:"Women's walk", author:"John Smith", date:"11/01/2016", time:"11:10am", location:"Gold's Gym", description: "These descriptions don't matter."};
+        $scope.newsarticle = {id:2 , title:"Sneak Peek", author:"Jessica Porter", date:"11/01/2016", time:"11:10am", location:"", description: "Here's a sneak peek of what's coming soon! Introducing togetHERout sports bras made by cofounder Lindsey Walters. Because these are handmade in Boulder, Colorado, we would love your feedback! How many of you girls are interested in purchasing togetHERout sports bras? Leave us some love in the comment section below 🙂 more designs to come!"};
     } else if ($stateParams.newsarticleId == 3) {
-        $scope.newsarticle = {id:3 , title:"March for dimes", author:"Peter Parker", date:"11/01/2016", time:"3:10Pm", location:"BSU Rec Center", description: "Learning new stuff is hard."};
+        $scope.newsarticle = {id:3 , title:"Who wants a free shaker", author:"Jessica Porter", date:"11/01/2016", time:"3:10Pm", location:"", description: "www.facebook.com/groups/726599160796457/permalink/978234785632892/ So, who wants a free shaker?!! 🙋Venmo BoomBoxBody and let us know that you're coming to the event - first 40 people to pay get one! 😎"};
     } else if ($stateParams.newsarticleId == 4) {
-        $scope.newsarticle = {id:4 , title:"Closing up shop", author:"Sheldon Cooper", date:"11/01/2016", time:"2:00pm", location:"Veterans Memorial", description: "Blah blah blah, is this working."};
+        $scope.newsarticle = {id:4 , title:"Powderhaus Brewing", author:"Jessica Porter", date:"11/01/2016", time:"2:00pm", location:"", description: "One of our new vendors for the event this Saturday!! 😍🙌🏼🍻#Repost @boomboxbody with @repostapp Sometimes it all just works out. @powderhausbrewing will donate 10 free beer tokens for the @togetherout and @boomboxbody raffle this Saturday. Click on the link in the @boomboxbody profile to sign up. "};
     }
 });

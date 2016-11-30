@@ -221,13 +221,15 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 	{
 		angular.forEach(json.data, function(value, key)
 		{
-			console.log(value.name);
-			var cleanString = value.start_time.replace(/[T]/g, " ");
-			console.log(cleanString);
+            var cleanString = value.start_time.replace(/[T]/g, " ");
+            var date = new Date(cleanString); 
+            var endtime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours() + 1, date.getMinutes(), date.getSeconds());
 			
     			events.push({
         			title: value.name,
-        			startTime: cleanString
+                    startTime: date,
+                    endTime: endtime,
+                    allDay: false
     			});
 		});
 	});
@@ -239,13 +241,30 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
     $scope.event = Event.get({eventId: $stateParams.eventId});
 })
 
-.controller('NewsCtrl', function($scope, News) {
-    $scope.news = News.query();
+.controller('NewsCtrl', function($scope) {
+    $scope.news = [
+        {id:0 , title:"Co-op Event", author:"Tony Stark", date:"10/31/2016", time:"9:40am", location:"Anne Morrison", description: "Gathering of startups at the Co-op."},
+        {id:1 , title:"Christmas Party", author:"Bruce Banner", date:"12/20/2016", time:"10:10am", location:"Green Belt", description: "Christmas Party at Anne Morrison."},
+        {id:2 , title:"Women's walk", author:"John Smith", date:"11/01/2016", time:"11:10am", location:"Gold's Gym", description: "These descriptions don't matter."},
+        {id:3 , title:"March for dimes", author:"Peter Parker", date:"11/01/2016", time:"3:10Pm", location:"BSU Rec Center", description: "Learning new stuff is hard."},
+        {id:4 , title:"Closing up shop", author:"Sheldon Cooper", date:"11/01/2016", time:"2:00pm", location:"Veterans Memorial", description: "Blah blah blah, is this working."}
+    ];
 })
+
 .controller('loginTemp', function($scope, News) {
     
 })
 
-.controller('NewsArticleCtrl', function($scope, $stateParams, News) {
-    $scope.newsarticle = News.get({newsarticleId: $stateParams.newsarticleId});
+.controller('NewsArticleCtrl', function($scope, $stateParams) {
+    if ($stateParams.newsarticleId == 0) {
+        $scope.newsarticle = {id:0 , title:"Co-op Event", author:"Tony Stark", date:"10/31/2016", time:"9:40am", location:"Anne Morrison", description: "Gathering of startups at the Co-op."};
+    } else if ($stateParams.newsarticleId == 1) {
+        $scope.newsarticle = {id:1 , title:"Christmas Party", author:"Bruce Banner", date:"12/20/2016", time:"10:10am", location:"Green Belt", description: "Christmas Party at Anne Morrison."};
+    } else if ($stateParams.newsarticleId == 2) {
+        $scope.newsarticle = {id:2 , title:"Women's walk", author:"John Smith", date:"11/01/2016", time:"11:10am", location:"Gold's Gym", description: "These descriptions don't matter."};
+    } else if ($stateParams.newsarticleId == 3) {
+        $scope.newsarticle = {id:3 , title:"March for dimes", author:"Peter Parker", date:"11/01/2016", time:"3:10Pm", location:"BSU Rec Center", description: "Learning new stuff is hard."};
+    } else if ($stateParams.newsarticleId == 4) {
+        $scope.newsarticle = {id:4 , title:"Closing up shop", author:"Sheldon Cooper", date:"11/01/2016", time:"2:00pm", location:"Veterans Memorial", description: "Blah blah blah, is this working."};
+    }
 });

@@ -13,3 +13,16 @@ div.title.title-center.header-item {
 .show {
     display: inherit;
 }
+
+#btnLogout {
+    color:Black;
+    background-color:#09aaF9;
+    padding:5px;
+    width:100px;
+    margin-right:25px;
+    font-size:1.5em;
+    border:none;
+    border-radius:7px;
+    margin-top:10px;
+    float:right;
+}

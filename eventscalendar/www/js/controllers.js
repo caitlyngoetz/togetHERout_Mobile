@@ -19,7 +19,8 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 
   // Form data for the login modal
   $scope.loginData = {};
-  $scope.user = { id : 0, name : "thisshitworks" };
+  $scope.user = { id : 0, name : "thisworks" };
+  $scope.notifications = { checked: true };
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -152,7 +153,7 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
 })
 
 //profile picture
-.controller('ProfileCtrl', function ($scope, ngFB) {
+.controller('ProfileCtrl', function ($scope, $state, ngFB) {
     ngFB.api({
         path: '/me',
         params: {fields: 'id,name'}
@@ -163,13 +164,19 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
         function (error) {
             alert('Facebook error: ' + error.error_description);
         });
+        
+        
+    $scope.logout = function() {
+        $scope.loginData = {};
+        $scope.user = null;
+        $scope.portrait.show = false;
+        $state.go('app.loginTemp');
+    };
 })
-
 
 .controller('SessionsCtrl', function($scope, Session) {
     $scope.sessions = Session.query();
 })
-
 
 .controller('SessionCtrl', function($scope, $stateParams, Session) {
     $scope.session = Session.get({sessionId: $stateParams.sessionId});
@@ -249,8 +256,75 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
     ];
 })
 
-.controller('loginTemp', function($scope, News) {
+.controller('loginTemp', function($scope, $state, $ionicModal) {
+    if ($scope.user != null) {
+        $scope.portrait = { show : true };
+    } else {
+        $scope.portrait = { show : false };
+    }
+  
+  // With the new view caching in Ionic, Controllers are only called
+  // when they are recreated or on app start, instead of every page change.
+  // To listen for when this page is active (for example, to refresh data),
+  // listen for the $ionicView.enter event:
+  //$scope.$on('$ionicView.enter', function(e) {
+  //});
+
+  // Form data for the login modal
+  $scope.loginData = {};
+  $scope.user = { id : 0, name : "thisworks" };
+
+  // Triggered in the login modal to close it
+  $scope.closeLogin = function() {
+    $scope.modal.hide();
+  };
+
+  // Open the login modal
+  $scope.login = function() {
+    $scope.modal.show();
+  };
+
+  // Perform the login action when the user submits the login form
+  $scope.doLogin = function() {
+    console.log('Doing login', $scope.loginData);
+
+    // Simulate a login delay. Remove this and replace with your login
+    // code if using a login system
+    $timeout(function() {
+      $scope.closeLogin();
+    }, 1000);
+  };
+
+    $scope.fbLogin = function () {
+        ngFB.login({scope: 'email,public_profile'}).then(
+        function (response) {
+            if (response.status === 'connected') {
+                console.log('Facebook login succeeded');
+                //saves scope .. Not working?
+                $scope.fbSave();
+                $scope.closeLogin();
+            } else {
+                alert('Facebook login failed');
+            }
+        });
+    };
     
+    $scope.fbSave = function () {
+        ngFB.api({
+            path: '/me',
+            params: {fields: 'id,name'}
+        })
+        .then(function (user) {
+            UserService.setUser(user);
+            $scope.user = user;
+            
+            if ($scope.user != null) {
+                $scope.portrait = { show : true };
+            } else {
+                $scope.portrait = { show : false };
+            }
+        })
+    };
 })
 
 .controller('NewsArticleCtrl', function($scope, $stateParams) {
@@ -265,4 +339,7 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
     } else if ($stateParams.newsarticleId == 4) {
         $scope.newsarticle = {id:4 , title:"Powderhaus Brewing", author:"Jessica Porter", date:"11/01/2016", time:"2:00pm", location:"", description: "One of our new vendors for the event this Saturday!! 😍🙌🏼🍻#Repost @boomboxbody with @repostapp Sometimes it all just works out. @powderhausbrewing will donate 10 free beer tokens for the @togetherout and @boomboxbody raffle this Saturday. Click on the link in the @boomboxbody profile to sign up. "};
     }
+})
+
+.controller('PreferencesCtrl', function($scope, $state) {
 });
